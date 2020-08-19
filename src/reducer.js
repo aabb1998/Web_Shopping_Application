@@ -20,6 +20,10 @@ export const initialState = {
   user: null,
 };
 
+// add the total within basket
+export const getBasketTotal = (basket) =>
+  basket?.reduce((amount, item) => item.price + amount, 0);
+
 const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
@@ -32,8 +36,23 @@ const reducer = (state, action) => {
 
     case "REMOVE_FROM_BASKET":
       // Logic for removing item from basket
-      return { state };
-      break;
+      let newBasket = [...state.basket];
+
+      // we check to see if product
+      const index = state.basket.findIndex(
+        (basketItem) => basketItem.id === action.id
+      );
+
+      if (index >= 0) {
+        // item exists in basket, remove it
+        newBasket.splice(index, 1);
+      } else {
+        console.warn(
+          "Cant remove product (id: ${action.id}) as its not in basket"
+        );
+      }
+
+      return { ...state, basket: newBasket };
     default:
       return state;
   }
