@@ -1,22 +1,5 @@
 export const initialState = {
-  basket: [
-    {
-      id: "1234324234",
-      title: "Test Bro",
-      price: 488.99,
-      rating: 4,
-      image:
-        "https://images-na.ssl-images-amazon.com/images/I/51vKlrdRKYL._AC_SX679_.jpg",
-    },
-    {
-      id: "1234324234",
-      title: "Test Bro",
-      price: 488.99,
-      rating: 4,
-      image:
-        "https://images-na.ssl-images-amazon.com/images/I/51vKlrdRKYL._AC_SX679_.jpg",
-    },
-  ],
+  basket: [],
   user: null,
 };
 
@@ -27,6 +10,11 @@ export const getBasketTotal = (basket) =>
 const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.user,
+      };
     case "ADD_TO_BASKET":
       // Logic for adding item to basket
       return {
